@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How not to Scuttlebutt</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      img { max-width: 100% }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# How not to Secure-Scuttlebutt
+
+<img src="hermies.png" width="200">
+
+---
+
+# What is Secure-Scuttlebutt?
+
+---
+
+# What is Secure-Scuttlebutt?
+
+- peer-to-peer protocol for decentralized communication
+
+---
+
+# What is Secure-Scuttlebutt?
+
+- peer-to-peer protocol for decentralized communication
+
+- gossip protocol for peer discovery and replication
+
+???
+
+SSB stands for [secure scuttlebutt](https://github.com/ssbc/secure-scuttlebutt),
+the database/protocol that powers the *peer-to-peer log store* [scuttlebutt](http://scuttlebot.io). There is a great deal of information to be found by reading these sites, if you're so inclined.
+
+If you're familiar with bitcoin or blockchains, SSB is akin to having your
+own personal blockchain: you can append messages of any kind, with any data
+you'd like. Unlike bitcoin, there's no money involved: it's just a data
+structure on your local machine.
+
+Your personal log can only be appended to, and is cryptographically secure: each
+message references the hash of the message that came before it. The whole thing
+is then also signed by your public key, making it both tamper-proof, and
+appendable only by the private key holder (you).
+
+The final piece of SSB that makes it all work is the gossip protocol: when you
+run scuttlebot, you become a peer in a network of other scuttlebot users. You
+can choose to 'follow' other people's personal logs. As a result, whenever you
+see that user (or any user that follows that user too) online, you can retrieve
+their latest log entries from them. All without any central server or central
+authentication.
+
+[git-ssb](http://git.scuttlebot.io/%25n92DiQh7ietE%2BR%2BX%2FI403LQoyf2DtR3WQfCkDKlheQU%3D.sha256) builds on top of this: things like commits, branches, issues, and pull requests are encoded into log entries on each participant's personal log, while the gossip protocol runs in the background and propagates new content to everyone involved in the git repository.
+
+---
+
+# Why Scuttlebutt?
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1046px" height="984px" viewBox="0 0 1046 984" enable-background="new 0 0 1046 984" xml:space="preserve">>
+	<defs>
+	    <filter id="f1" x="0" y="0" width="100%" height="100%">
+	      <feImage xlink:href="#p1" result="p1"/>
+	      <feImage xlink:href="#p2" result="p2"/>
+	      <feImage xlink:href="#p3" result="p3"/>
+
+	      <feBlend mode="color-dodge" in="p1" in2="backgroundImage" />
+	      <feBlend mode="color-dodge" in="p2" in2="backgroundImage"/>
+	      <feBlend mode="color-dodge" in="p3" in2="backgroundImage"/>
+	    </filter>
+
+	    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+	      <stop offset="0%" style="stop-color:rgb(206,0,145);stop-opacity:0.45" />
+	      <stop offset="100%" style="stop-color:rgb(237,108,57);stop-opacity:0.45" />
+	    </linearGradient>
+
+	    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+	      <stop offset="0%" style="stop-color:rgb(204,9,227);stop-opacity:0.45" />
+	      <stop offset="100%" style="stop-color:rgb(0,68,194);stop-opacity:0.45" />
+	    </linearGradient>
+
+	    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="0%">
+	      <stop offset="0%" style="stop-color:rgb(0,197,233);stop-opacity:0.3" />
+	      <stop offset="100%" style="stop-color:rgb(0,231,179);stop-opacity:0.3" />
+	    </linearGradient>
+
+      <!--<circle id="p3" cx="158.005" cy="203.784" r="100" fill="url(#grad3)"/>-->
+      <circle id="p1" cx="216" cy="206" r="200" fill="url(#grad1)"/>
+      <circle id="p2" cx="416" cy="206" r="200" fill="url(#grad2)"/>
+
+
+	</defs>
+
+    <rect width="100%" height="100%" filter="url(#f1)"/>
+
+    <text x="50" y="200" fill="white">Data Replication</text>
+    <text x="50" y="250" fill="white">Append-only log</text>
+    <text x="30" y="150" fill="white">Eventual consistency</text>
+    <text x="266" y="200" fill="white">Scuttlebutt</text>
+    <text x="420" y="200" fill="white">Peer-to-peer storage</text>
+    <text x="420" y="250" fill="white">Decentralized</text>
+    <text x="420" y="150" fill="white">Secure networking</text>
+
+<!--      <circle id="p1" cx="108" cy="103.774" r="100" fill="url(#grad1)" filter="url(#f1)"/>
+      <circle id="p3" cx="158.005" cy="203.784" r="100" fill="url(#grad3)" filter="url(#f1)"/>
+      <circle id="p2" cx="208.01" cy="103.774" r="100" fill="url(#grad2)" filter="url(#f1)"/>      -->
+
+
+</svg>
+
+---
+
+# The Scuttlebutt Ecosystem
+
+---
+
+### ssb-server (aka scuttlebot)
+
+A service for connecting your machine to your Scuttlebutt network
+
+---
+
+### ssb-server (aka scuttlebot)
+
+A service for connecting your machine to your Scuttlebutt network
+
+### git-ssb
+
+A GitHub alternative that supports hosting Git repos
+
+---
+
+### ssb-server (aka scuttlebot)
+
+A service for connecting your machine to your Scuttlebutt network
+
+### git-ssb
+
+A GitHub alternative that supports hosting Git repos
+
+### ssb-npm
+
+An npm alternative that supports hosting/installing npm packages
+
+???
+
+git-ssb is an incredibly useful tool here because it really enables git to
+behave the way git should. If you and your friend are working collaboratively
+within the same repo, git-ssb enables you to push code and share commits from
+peer-to-peer over the same network without needing a central server.
+
+---
+
+# How does I Scuttlebutt?
+
+- https://scuttlebot.io/
+
+---
+
+# ~~How does I Scuttlebutt?~~ LIES
+
+- https://scuttlebot.io/
+
+---
+
+# How to
+
+    npm install -g ssb-server@13.3.0
+    ssb-server start
+
+    ssb-server invite.accept &lt;your invite code&gt;
+
+![ssb-server takes forever](ssbloading.gif)
+
+---
+
+A cool half-finished paper by Dominic Tarr
+
+https://github.com/dominictarr/scalable-secure-scuttlebutt/blob/master/paper.md
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
