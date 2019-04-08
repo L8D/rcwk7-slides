@@ -28,57 +28,21 @@ By Tenor
 
 ---
 
-- Source: https://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/
+Learning the basics progessively:
+
+- vimtutor
+
+- https://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/
 
 ---
 
-# Learning VIM in 4 steps
-
----
-
-# Learning VIM in 4 steps
-
-1. Survive
-
----
-
-# Learning VIM in 4 steps
-
-1. Survive
-
-2. Feel comfortable
-
----
-
-# Learning VIM in 4 steps
-
-1. Survive
-
-2. Feel comfortable
-
-3. Feel Better, Stronger, Faster
-
----
-
-# Learning VIM in 4 steps
-
-1. Survive
-
-2. Feel comfortable
-
-3. Feel Better, Stronger, Faster
-
-4. Use superpowers of Vim
-
----
-
-# What are the superpowers of Vim?
+# Superpowers
 
 - Search + `*` + `#`
 
 ---
 
-# What are the superpowers of Vim?
+# Superpowers
 
 - Search + `*` + `#`
 
@@ -86,7 +50,7 @@ By Tenor
 
 ---
 
-# What are the superpowers of Vim?
+# Superpowers
 
 - Search + `*` + `#`
 
@@ -96,23 +60,101 @@ By Tenor
 
 ---
 
-# What are the superpowers of Vim?
+# Shell magic
 
-- Search + `*` + `#`
-
-- Search &amp; Modify (aka Find &amp; Replace)
-
-- Shell magic
-
-- Block selection: `<C-v>`
+```
+$ git grep foo | xargs vim
+$ ls | xargs vim
+```
 
 ---
 
-# How to navigate
+# Navigating quickly
 
-- Train yourself to use buffers
+- Leverage built-in file browser
+
+```
+set nocompatible
+set filetype plugin on
+```
+
+---
+
+# Navigating quickly
 
 - Avoid keeping splits and tabs open
+
+- Start using buffers:
+
+```
+set hidden
+
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
+```
+
+```
+:help windows-intro
+```
+
+---
+
+# Pimp your VIM
+
+Start using plugins:
+
+beginner friendly:
+
+https://github.com/junegunn/vim-plug
+
+other options:
+
+https://github.com/Shougo/dein.vim
+https://github.com/VundleVim/Vundle.vim
+https://github.com/tpope/vim-pathogen
+
+---
+
+# Pimp your VIM
+
+---
+
+# Pimp your VIM
+
+Making buffers easier
+
+BufferLine: https://github.com/bling/vim-bufferline
+
+BufTabLine: https://github.com/ap/vim-buftabline
+
+WinTabs: https://github.com/zefei/vim-wintabs
+
+---
+
+# Pimp your VIM
+
+Customize your status line
+
+    set laststatus=2                             " always show statusbar
+    set statusline=
+    set statusline+=%f\                          " filename
+    set statusline+=%-10.3n\                     " buffer number
+    set statusline+=%h%m%r%w                     " status flags
+    set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type
+    set statusline+=%=                           " right align remainder
+    set statusline+=0x%-8B                       " character value
+    set statusline+=%-14(%l,%c%V%)               " line, character
+    set statusline+=%<%P                         " file position
+
+---
+
+# Pimp your VIM
+
+Work with Git: [fugitive](https://github.com/tpope/vim-fugitive)
+
+Navigate super fast: [CtrlP](https://github.com/kien/ctrlp.vim)
+
+Stop thinking about configuration: [EditorConfig](https://github.com/editorconfig/editorconfig-vim)
 
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
